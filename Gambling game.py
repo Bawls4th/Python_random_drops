@@ -1,59 +1,66 @@
 import random
-def casino_cardgame():
-    a = "Welcome To python gamble bet money/life savings"
+import sys
 
-    print(a)
+
+def casino_cardgame():
+    print("BLYYYYAAAAAT! Welcome to Casino.")
 
 def lost_financial():
-    wp = "You've Gone Debt. Thx For Playing."
-
-    print(wp)
+    print("You've gone financial debt. Thanks for wasting your shit.")
 
 def main():
     casino_cardgame()
 
-    Name = input("Name of lucky Bastard: ")
-    dolla = int(input("Amount of Money: "))
-    print("Welcome Mr./Ms. " + Name + ". Your Financial Money is " + str(dolla) + " of Savings.")
+    name = input("Name: ")
+    money = int(input("Enter amount of money from your financial: "))
+    print(f"Welcome {name}. Your initial financial amount is ${money}.")
 
-    Gambling = True
-    while Gambling:
-        bet = input("Place your Financial Bet: ")
-        nobet = int(bet) == 1 or int(bet) <= -1
-        while nobet:
-            print("Nigga is Pussy.")
-            bet = input("Bet MORE!!!: ")
-            nobet = int(bet)  == 1 or int(bet) <= -1
+    gambling = True
+    while gambling:
+        while True:
+            try:
+                bet = int(input("Place your bet: "))
+                if bet > 0 and bet <= money:
+                    break
+                elif bet > money:
+                    print("Bet on exceeds your money idiot. ")
+                elif bet == 0:
+                    print("GET OUUUTTT!!!")
+                    sys.exit()
+                else:
+                    print("Bet more Pusssys. ")
 
-        bet = int(bet)
+            except ValueError:
+                print("Is u retard ehh? Bet MONEEEEYY!!!!!!.")
 
-        PlayerCard = random.randint(1, 15)
-        DealerCard = random.randint(1, 15)
+        player_card = random.randint(1, 15)
+        dealer_card = random.randint(1, 15)
 
-        print("Your card is " + str(PlayerCard) + ". CPU card is " + str(DealerCard) + ".")
+        print(f"Your card is {player_card}. Dealer's card is {dealer_card}.")
 
-        if PlayerCard == DealerCard:
-            print("Draw, Lucky shit.")
-            money = dolla
-        elif PlayerCard > DealerCard:
-            print("You win " + str(bet) + " You Bastard")
-            money = dolla + bet
+        if player_card == dealer_card:
+            print("Draw!")
+        elif player_card > dealer_card:
+            print(f"You win ${bet} Lucky Bastard!")
+            money += bet
         else:
-            print("Dealer Won  " + str(bet) + " You're Bankrupt Bitch")
-            money = dolla - bet
+            print(f"Dealer wins ${bet}, Bitch!!!")
+            money -= bet
 
-        if money == 0:
-            print("You're out of money!")
+        if money <= 0:
+            print("You're out of Financial money!")
             lost_financial()
-            DophamineGamb = False
             break
         else:
-            print("Your money is now " + str(money) + " Gold.")
-            state = input("Keep PLaying? [Y/N]  (Winners never quit) ")
-            if state == 'y' or state == 'Y':
-                DophamineGamb = True
-            elif state == 'n' or state == 'N':
-                print("Youre Financial Saving is " + str(money) + " Quitter...")
-                print("Thanks For wasting your time.")
-                break
+            while True:
+                state = input("Do you want to keep playing? (Losers Never Quit) [Y/N]: ")
+                if state == 'y' or state == 'Y':
+                    break
+                elif state == 'n' or state == 'N':
+                    print(f"Thanks for wasting your time cyKAAAA! Your financial money is ${money}.")
+                    gambling = False
+                    break
+                else:
+                    print("Invalid Dickhead. Please enter Y or N: ")
+
 main()
